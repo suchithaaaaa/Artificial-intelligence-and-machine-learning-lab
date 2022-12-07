@@ -158,50 +158,43 @@ print(datetime_object)<br>
 **output**<br>
 <class 'datetime.datetime'><br>
 2011-03-11 11:31:00<br>
-10**reverse a number**
-num = 1234
-reversed_num = 0
-
-while num != 0:
-    digit = num % 10
-    reversed_num = reversed_num * 10 + digit
-    num //= 10
-print("Reversed Number: " + str(reversed_num))
-**output**
-Reversed Number: 4321
-11**power of a number
-base = 3
-exponent = 4
-
-result = 1
-
-while exponent != 0:
-    result *= base
-    exponent-=1
-
-print("Answer = " + str(result))
-**output**
-Answer = 81
-12**count down timer**
-import time
-
-def countdown(time_sec):
-    while time_sec:
-        mins, secs = divmod(time_sec, 60)
-        timeformat = '{:02d}:{:02d}'.format(mins, secs)
-        print(timeformat, end='\r')
-        time.sleep(1)
-        time_sec -= 1
-
-    print("stop")
-
-countdown(5)
-**output**
-stop1
-13**convert byte to string
-print(b'Easy \xE2\x9C\x85'.decode("utf-8"))
-**output**
-Easy ✅
+11**reverse a number**<br>
+num = 1234<br>
+reversed_num = 0<br>
+while num != 0:<br>
+    digit = num % 10<br>
+    reversed_num = reversed_num * 10 + digit<br>
+    num //= 10<br>
+print("Reversed Number: " + str(reversed_num))<br>
+**output**<br>
+Reversed Number: 4321<br>
+12**power of a number<br>
+base = 3<br>
+exponent = 4<br>
+result = 1<br>
+while exponent != 0:<br>
+    result *= base<br>
+    exponent-=1<br>
+print("Answer = " + str(result))<br>
+**output**<br>
+Answer = 81<br>
+13**count down timer**<br>
+import time<br>
+def countdown(time_sec):<br>
+    while time_sec:<br>
+        mins, secs = divmod(time_sec, 60)<br>
+        timeformat = '{:02d}:{:02d}'.format(mins, secs)<br>
+        print(timeformat, end='\r')<br>
+        time.sleep(1)<br>
+        time_sec -= 1<br>
+    print("stop")<br>
+countdown(5)<br>
+**output**<br>
+stop1<br>
+14**convert byte to string<br>
+print(b'Easy \xE2\x9C\x85'.decode("utf-8"))<br>
+**output**<br>
+Easy ✅<br>
 
 
 
