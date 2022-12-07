@@ -195,6 +195,20 @@ stop1<br>
 print(b'Easy \xE2\x9C\x85'.decode("utf-8"))<br>
 **output**<br>
 Easy ✅<br>
+15**append the file**<br>
+# Python program to merge two files<br> 
+data = data2 = "" <br>
+# Reading data from first file <br>
+with open('file1.txt') as fp:<br> 
+    data = fp.read() <br>
+with open('file2.txt') as fp: <br><br>
+    data2 = fp.read() <br>
+# Merging two files into one another file <br><br>
+data += "\n"<br>
+data += data2 <br>
+with open ('file3.txt', 'w') as fp:<br> 
+    fp.write(data)<br>
+
 
 
 
