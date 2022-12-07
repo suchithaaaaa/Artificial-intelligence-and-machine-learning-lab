@@ -158,5 +158,50 @@ print(datetime_object)<br>
 **output**<br>
 <class 'datetime.datetime'><br>
 2011-03-11 11:31:00<br>
+10**reverse a number**
+num = 1234
+reversed_num = 0
+
+while num != 0:
+    digit = num % 10
+    reversed_num = reversed_num * 10 + digit
+    num //= 10
+print("Reversed Number: " + str(reversed_num))
+**output**
+Reversed Number: 4321
+11**power of a number
+base = 3
+exponent = 4
+
+result = 1
+
+while exponent != 0:
+    result *= base
+    exponent-=1
+
+print("Answer = " + str(result))
+**output**
+Answer = 81
+12**count down timer**
+import time
+
+def countdown(time_sec):
+    while time_sec:
+        mins, secs = divmod(time_sec, 60)
+        timeformat = '{:02d}:{:02d}'.format(mins, secs)
+        print(timeformat, end='\r')
+        time.sleep(1)
+        time_sec -= 1
+
+    print("stop")
+
+countdown(5)
+**output**
+stop1
+13**convert byte to string
+print(b'Easy \xE2\x9C\x85'.decode("utf-8"))
+**output**
+Easy ✅
+
 
 
