@@ -753,7 +753,138 @@ solve(initial, empty_tile_pos, final)
 
 1  2  3  
 5  8  6  
-0  7  4  
+0  7  4 
+
+8 **saLesman problem**
+from sys import maxsize
+from itertools import permutations
+V = 4
+def travellingSalesmanProblem(graph, s):
+    # store all vertex apart from source vertex
+    vertex = []
+    for i in range(V):
+        if i != s:
+            vertex.append(i)
+            # store minimum weight Hamiltonian Cycle
+        min_path = maxsize
+        next_permutation=permutations(vertex)
+        for i in next_permutation:
+        # store current Path weight(cost)
+            current_pathweight = 0
+            # compute current path weight
+            k = s
+            for j in i:
+                current_pathweight += graph[k][j]
+                k = j
+            current_pathweight += graph[k][s]
+                # Update minimum
+            min_path = min(min_path, current_pathweight)
+    return min_path
+                # Driver Code
+if __name__ == "__main__":
+# matrix representation of graph
+    graph = [[0, 10, 15, 20], [10, 0, 35, 25],
+            [15, 35, 0, 30], [20, 25, 30, 0]]
+    s = 0
+    print(travellingSalesmanProblem(graph, s))
+                    
+**output**
+80
+
+**part-B machine learning**
+9 ** find 1`s algorithm**
+import csv
+hypo=['%','%','%','%','%','%']
+with open('ws.csv') as csv_file:
+    readcsv = csv.reader(csv_file, delimiter=',')
+    data=[]
+    print("\nThe given training examples are:")
+    for row in readcsv:
+        print(row)
+        if row[len(row)-1] =='Yes':
+            data.append(row)
+print("\nThe positive examples are:")
+for x in data:
+    print(x)
+TotalExamples=len(data)
+i=0
+j=0
+k=0
+print("\nThe steps of the Find-s algorithm are\n",hypo)
+list =[]
+p=0
+d=len(data[p])-1
+for j in range(d):
+    list.append(data[i][j])
+hypo=list
+for i in range(1,TotalExamples):
+    for k in range(d):
+        if hypo[k]!=data[i][k]:
+            hypo[k]='?'
+        else:
+            hypo[k]
+    print(hypo)
+print("\nThe maximally specific Find-s hypothesis for the given training examples is");
+list=[]
+for i in range(d):
+    list.append(hypo[i])
+print(list)
+
+**output**
+The given training examples are:
+['Sunny', 'Warm', 'Normal', 'Strong', 'Warm', 'Same', 'Yes']
+['Sunny', 'Warm', 'High', 'Strong', 'Warm', 'Same', 'Yes']
+['Rainy', 'Cold', 'High', 'Strong', 'Warm', 'Change', 'No']
+['Sunny', 'Warm', 'High', 'Strong', 'Cool', 'Change', 'Yes']
+
+The positive examples are:
+['Sunny', 'Warm', 'Normal', 'Strong', 'Warm', 'Same', 'Yes']
+['Sunny', 'Warm', 'High', 'Strong', 'Warm', 'Same', 'Yes']
+['Sunny', 'Warm', 'High', 'Strong', 'Cool', 'Change', 'Yes']
+
+The steps of the Find-s algorithm are
+ ['%', '%', '%', '%', '%', '%']
+['Sunny', 'Warm', '?', 'Strong', 'Warm', 'Same']
+['Sunny', 'Warm', '?', 'Strong', '?', '?']
+
+The maximally specific Find-s hypothesis for the given training examples is
+['Sunny', 'Warm', '?', 'Strong', '?', '?']
+
+10**candidate elimination**
+import csv
+with open('ws.csv') as csv_file:
+#with open("ws.csv") as f:
+    #csv_file=csv.reader(f)
+          #data=list(csv_file)
+          readcsv=csv.reader(csv_file,delimiter=',')
+          data=[]
+          for row in readcsv:
+              data.append(row)
+          s=data[1][:-1]
+          g=[['?' for i in range(len(s))] for j in range(len(s))]
+          for i in data:
+              if[-1]=="Yes":
+                for j in range(len(s)):
+                   if i[j]!=s[j]:
+                      s[j]='?'
+                      g[j][j]='?'
+              elif i[-1]=="No":
+                    for j in range(len(s)):
+                      if i[j]!=s[j]:
+                          g[j][j]=s[j]
+                      else:
+                            g[j][j]="?"
+              print("\nSteps of Candidate Elimination Algorithm",data.index(i)+1)
+              print(s)
+              print(g)
+          gh=[]
+          for i in g:
+             for j in i:
+                if j!='?':
+                    gh.append(i)
+                    break
+          print("\nFinal specific hypothesis:\n",s)
+          print("\nFinal general hypothesis:\n",gh)
 
 
 
