@@ -886,6 +886,29 @@ with open('ws.csv') as csv_file:
           print("\nFinal specific hypothesis:\n",s)
           print("\nFinal general hypothesis:\n",gh)
 
+**output**
+
+Steps of Candidate Elimination Algorithm 1
+['Sunny', 'Warm', 'High', 'Strong', 'Warm', 'Same']
+[['?', '?', '?', '?', '?', '?'], ['?', '?', '?', '?', '?', '?'], ['?', '?', '?', '?', '?', '?'], ['?', '?', '?', '?', '?', '?'], ['?', '?', '?', '?', '?', '?'], ['?', '?', '?', '?', '?', '?']]
+
+Steps of Candidate Elimination Algorithm 2
+['Sunny', 'Warm', 'High', 'Strong', 'Warm', 'Same']
+[['?', '?', '?', '?', '?', '?'], ['?', '?', '?', '?', '?', '?'], ['?', '?', '?', '?', '?', '?'], ['?', '?', '?', '?', '?', '?'], ['?', '?', '?', '?', '?', '?'], ['?', '?', '?', '?', '?', '?']]
+
+Steps of Candidate Elimination Algorithm 3
+['Sunny', 'Warm', 'High', 'Strong', 'Warm', 'Same']
+[['Sunny', '?', '?', '?', '?', '?'], ['?', 'Warm', '?', '?', '?', '?'], ['?', '?', '?', '?', '?', '?'], ['?', '?', '?', '?', '?', '?'], ['?', '?', '?', '?', '?', '?'], ['?', '?', '?', '?', '?', 'Same']]
+
+Steps of Candidate Elimination Algorithm 4
+['Sunny', 'Warm', 'High', 'Strong', 'Warm', 'Same']
+[['Sunny', '?', '?', '?', '?', '?'], ['?', 'Warm', '?', '?', '?', '?'], ['?', '?', '?', '?', '?', '?'], ['?', '?', '?', '?', '?', '?'], ['?', '?', '?', '?', '?', '?'], ['?', '?', '?', '?', '?', 'Same']]
+
+Final specific hypothesis:
+ ['Sunny', 'Warm', 'High', 'Strong', 'Warm', 'Same']
+
+Final general hypothesis:
+ [['Sunny', '?', '?', '?', '?', '?'], ['?', 'Warm', '?', '?', '?', '?'], ['?', '?', '?', '?', '?', 'Same']]
 
 
 
