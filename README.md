@@ -535,380 +535,362 @@ Winner is: -1<br>
 # puzzle is solvable<br> 
 # Importing copy for deepcopy function<br> 
 import copy<br> 
-# Importing the heap functions from python
-# library for Priority Queue
-from heapq import heappush, heappop
-
-# This variable can be changed to change
-# the program from 8 puzzle(n=3) to 15
-# puzzle(n=4) to 24 puzzle(n=5)...
-n = 3
-
-# bottom, left, top, right
-row = [ 1, 0, -1, 0 ]
-col = [ 0, -1, 0, 1 ]
-
-# A class for Priority Queue
-class priorityQueue:
-	
-	# Constructor to initialize a
-	# Priority Queue
-	def __init__(self):
-		self.heap = []
-
-	# Inserts a new key 'k'
-	def push(self, k):
-		heappush(self.heap, k)
-
-	# Method to remove minimum element
-	# from Priority Queue
-	def pop(self):
-		return heappop(self.heap)
-
-	# Method to know if the Queue is empty
-	def empty(self):
-		if not self.heap:
-			return True
-		else:
-			return False
-
-# Node structure
-class node:
-	
-	def __init__(self, parent, mat, empty_tile_pos,
-				cost, level):
-					
-		# Stores the parent node of the
-		# current node helps in tracing
-		# path when the answer is found
-		self.parent = parent
-
-		# Stores the matrix
-		self.mat = mat
-
-		# Stores the position at which the
-		# empty space tile exists in the matrix
-		self.empty_tile_pos = empty_tile_pos
-
-		# Stores the number of misplaced tiles
-		self.cost = cost
-
-		# Stores the number of moves so far
-		self.level = level
-
-	# This method is defined so that the
-	# priority queue is formed based on
-	# the cost variable of the objects
-	def __lt__(self, nxt):
-		return self.cost < nxt.cost
-
-# Function to calculate the number of
-# misplaced tiles ie. number of non-blank
-# tiles not in their goal position
-def calculateCost(mat, final) -> int:
-	
-	count = 0
-	for i in range(n):
-		for j in range(n):
-			if ((mat[i][j]) and
-				(mat[i][j] != final[i][j])):
-				count += 1
+# Importing the heap functions from python<br> 
+# library for Priority Queue<br> 
+from heapq import heappush, heappop<br> 
+# This variable can be changed to change<br> 
+# the program from 8 puzzle(n=3) to 15<br> 
+# puzzle(n=4) to 24 puzzle(n=5)...<br> 
+n = 3<br> 
+# bottom, left, top, right<br> 
+row = [ 1, 0, -1, 0 ]<br> 
+col = [ 0, -1, 0, 1 ]<br> 
+# A class for Priority Queue<br> 
+class priorityQueue:<br> 
+	# Constructor to initialize a<br> 
+	# Priority Queue<br> 
+	def __init__(self):<br> 
+		self.heap = []<br> 
+	# Inserts a new key 'k'<br> 
+	def push(self, k):<br> 
+		heappush(self.heap, k)<br> 
+	# Method to remove minimum element<br> 
+	# from Priority Queue<br> 
+	def pop(self):<br> 
+		return heappop(self.heap)<br> 
+	# Method to know if the Queue is empty<br> 
+	def empty(self):<br> 
+		if not self.heap:<br> 
+			return True<br> 
+		else:<br> 
+			return False<br> 
+# Node structure<br> 
+class node:<br> 
+	def __init__(self, parent, mat, empty_tile_pos,<br> 
+				cost, level):<br> 
+		# Stores the parent node of the<br> 
+		# current node helps in tracing<br> 
+		# path when the answer is found<br> 
+		self.parent = parent<br> 
+		# Stores the matrix<br> 
+		self.mat = mat<br> 
+		# Stores the position at which the<br> 
+		# empty space tile exists in the matrix<br> 
+		self.empty_tile_pos = empty_tile_pos<br> 
+		# Stores the number of misplaced tiles<br> 
+		self.cost = cost<br> 
+		# Stores the number of moves so far<br> 
+		self.level = level<br> 
+	# This method is defined so that the<br> 
+	# priority queue is formed based on<br> 
+	# the cost variable of the objects<br> 
+	def __lt__(self, nxt):<br> 
+		return self.cost < nxt.cost<br> 
+		# Function to calculate the number of<br> 
+#misplaced tiles ie. number of non-blank<br> 
+#tiles not in their goal position<br> 
+def calculateCost(mat, final) -> int:<br> 
+	count = 0<br> 
+	for i in range(n):<br> 
+		for j in range(n):<br> 
+			if ((mat[i][j]) and<br> 
+				(mat[i][j] != final[i][j])):<br> 
+				count += 1<br> 
 				
 	return count
 
-def newNode(mat, empty_tile_pos, new_empty_tile_pos,
-			level, parent, final) -> node:
+def newNode(mat, empty_tile_pos, new_empty_tile_pos,<br> 
+			level, parent, final) -> node:<br> 
 				
-	# Copy data from parent matrix to current matrix
-	new_mat = copy.deepcopy(mat)
+	# Copy data from parent matrix to current matrix<br> 
+	new_mat = copy.deepcopy(mat)<br> 
 
-	# Move tile by 1 position
-	x1 = empty_tile_pos[0]
-	y1 = empty_tile_pos[1]
-	x2 = new_empty_tile_pos[0]
-	y2 = new_empty_tile_pos[1]
-	new_mat[x1][y1], new_mat[x2][y2] = new_mat[x2][y2], new_mat[x1][y1]
+	# Move tile by 1 position<br> 
+	x1 = empty_tile_pos[0]<br> 
+	y1 = empty_tile_pos[1]<br> 
+	x2 = new_empty_tile_pos[0]<br> 
+	y2 = new_empty_tile_pos[1]<br> 
+	new_mat[x1][y1], new_mat[x2][y2] = new_mat[x2][y2], new_mat[x1][y1]<br> 
 
-	# Set number of misplaced tiles
-	cost = calculateCost(new_mat, final)
+	# Set number of misplaced tiles<br> 
+	cost = calculateCost(new_mat, final)<br> 
 
-	new_node = node(parent, new_mat, new_empty_tile_pos,
-					cost, level)
-	return new_node
+	new_node = node(parent, new_mat, new_empty_tile_pos,cost, level)<br> 
+	return new_node<br> 
 
-# Function to print the N x N matrix
-def printMatrix(mat):
+# Function to print the N x N matrix<br> 
+def printMatrix(mat):<br> 
 	
-	for i in range(n):
-		for j in range(n):
-			print("%d " % (mat[i][j]), end = " ")
-			
-		print()
+	for i in range(n):<br> 
+		for j in range(n):<br> 
+			print("%d " % (mat[i][j]), end = " ")<br> 
+			<br> 
+		print()<br> 
 
-# Function to check if (x, y) is a valid
-# matrix coordinate
-def isSafe(x, y):
+# Function to check if (x, y) is a valid<br> 
+# matrix coordinate<br> 
+def isSafe(x, y):<br> 
+	<br> 
+	return x >= 0 and x < n and y >= 0 and y < n<br> 
+
+# Print path from root node to destination node<br> 
+def printPath(root):<br> 
+	<br> 
+	if root == None:<br> 
+		return<br> 
+	<br> 
+	printPath(root.parent)<br> 
+	printMatrix(root.mat)<br> 
+	print()<br> 
+<br> 
+# Function to solve N*N - 1 puzzle algorithm<br> 
+# using Branch and Bound. empty_tile_pos is<br> 
+# the blank tile position in the initial state<br> 
+def solve(initial, empty_tile_pos, final):<br> 
 	
-	return x >= 0 and x < n and y >= 0 and y < n
-
-# Print path from root node to destination node
-def printPath(root):
-	
-	if root == None:
-		return
-	
-	printPath(root.parent)
-	printMatrix(root.mat)
-	print()
-
-# Function to solve N*N - 1 puzzle algorithm
-# using Branch and Bound. empty_tile_pos is
-# the blank tile position in the initial state.
-def solve(initial, empty_tile_pos, final):
-	
-	# Create a priority queue to store live
-	# nodes of search tree
-	pq = priorityQueue()
-
-	# Create the root node
-	cost = calculateCost(initial, final)
-	root = node(None, initial,
-				empty_tile_pos, cost, 0)
-
-	# Add root to list of live nodes
-	pq.push(root)
-
-	# Finds a live node with least cost,
-	# add its children to list of live
-	# nodes and finally deletes it from
-	# the list.
-	while not pq.empty():
-
-		# Find a live node with least estimated
-		# cost and delete it form the list of
-		# live nodes
-		minimum = pq.pop()
-
-		# If minimum is the answer node
+	# Create a priority queue to store live<br> 
+	# nodes of search tree<br> 
+	pq = priorityQueue()<br> 
+<br> 
+	# Create the root node<br> 
+	cost = calculateCost(initial, final)<br> 
+	root = node(None, initial,<br> 
+				empty_tile_pos, cost, 0)<br> 
+<br> 
+	# Add root to list of live nodes<br> 
+	pq.push(root)<br> 
+<br> 
+	# Finds a live node with least cost,<br> 
+	# add its children to list of live<br> 
+	# nodes and finally deletes it from<br> 
+	# the list.<br> 
+	while not pq.empty():<br> 
+<br> 
+		# Find a live node with least estimated<br> 
+		# cost and delete it form the list of<br> 
+		# live nodes<br> 
+		minimum = pq.pop()<br> 
+<br> 
+		# If minimum is the an<br> swer node<br> 
 		if minimum.cost == 0:
-			
-			# Print the path from root to
-			# destination;
-			printPath(minimum)
-			return
+			<br> 
+			# Print the path from root to<br> 
+			# destination;<br> 
+			printPath(minimum)<br> 
+			return<br> 
+<br> 
+		# Generate all possible children<br> 
+		for i in range(4):<br> 
+			new_tile_pos = [<br> 
+				minimum.empty_tile_pos[0] + row[i],<br> 
+				minimum.empty_tile_pos[1] + col[i], ]<br> 
+			<br> 	
+			if isSafe(new_tile_pos[0], new_tile_pos[1]):<br> 
+				<br> 
+				# Create a child node<br> 
+				child = newNode(minimum.mat,<br> 
+								minimum.empty_tile_pos,<br> 
+								new_tile_pos,<br> 
+								minimum.level + 1,<br> 
+								minimum, final,)<br> 
+<br> 
+				# Add child to list of live nodes<br> 
+				pq.push(child)<br> 
 
-		# Generate all possible children
-		for i in range(4):
-			new_tile_pos = [
-				minimum.empty_tile_pos[0] + row[i],
-				minimum.empty_tile_pos[1] + col[i], ]
-				
-			if isSafe(new_tile_pos[0], new_tile_pos[1]):
-				
-				# Create a child node
-				child = newNode(minimum.mat,
-								minimum.empty_tile_pos,
-								new_tile_pos,
-								minimum.level + 1,
-								minimum, final,)
+# Driver Code<br> 
+<br> 
+# Initial configuration<br> 
+# Value 0 is used for empty space<br> 
+initial = [ [ 1, 2, 3 ],<br> 
+			[ 5, 6, 0 ],<br> 
+			[ 7, 8, 4 ] ]<br> 
 
-				# Add child to list of live nodes
-				pq.push(child)
-
-# Driver Code
-
-# Initial configuration
-# Value 0 is used for empty space
-initial = [ [ 1, 2, 3 ],
-			[ 5, 6, 0 ],
-			[ 7, 8, 4 ] ]
-
-# Solvable Final configuration
-# Value 0 is used for empty space
-final = [ [ 1, 2, 3 ],
-		[ 5, 8, 6 ],
-		[ 0, 7, 4 ] ]
-
-# Blank tile coordinates in
-# initial configuration
-empty_tile_pos = [ 1, 2 ]
-
-# Function call to solve the puzzle
-solve(initial, empty_tile_pos, final)
-
-# This code is contributed by Kevin Joshi
-
-**output**
-1  2  3  
-5  6  0  
-7  8  4  
-
-1  2  3  
-5  0  6  
-7  8  4  
-
-1  2  3  
-5  8  6  
-7  0  4  
-
-1  2  3  
-5  8  6  
-0  7  4 
-
-8 **saLesman problem**
-from sys import maxsize
-from itertools import permutations
-V = 4
-def travellingSalesmanProblem(graph, s):
-    # store all vertex apart from source vertex
-    vertex = []
-    for i in range(V):
-        if i != s:
-            vertex.append(i)
-            # store minimum weight Hamiltonian Cycle
-        min_path = maxsize
-        next_permutation=permutations(vertex)
-        for i in next_permutation:
-        # store current Path weight(cost)
-            current_pathweight = 0
-            # compute current path weight
-            k = s
-            for j in i:
-                current_pathweight += graph[k][j]
-                k = j
-            current_pathweight += graph[k][s]
-                # Update minimum
-            min_path = min(min_path, current_pathweight)
-    return min_path
-                # Driver Code
-if __name__ == "__main__":
-# matrix representation of graph
-    graph = [[0, 10, 15, 20], [10, 0, 35, 25],
-            [15, 35, 0, 30], [20, 25, 30, 0]]
-    s = 0
-    print(travellingSalesmanProblem(graph, s))
-                    
-**output**
-80
-
-**part-B machine learning**
-9 ** find 1`s algorithm**
-import csv
-hypo=['%','%','%','%','%','%']
-with open('ws.csv') as csv_file:
-    readcsv = csv.reader(csv_file, delimiter=',')
-    data=[]
-    print("\nThe given training examples are:")
-    for row in readcsv:
-        print(row)
-        if row[len(row)-1] =='Yes':
-            data.append(row)
-print("\nThe positive examples are:")
-for x in data:
-    print(x)
-TotalExamples=len(data)
-i=0
-j=0
-k=0
-print("\nThe steps of the Find-s algorithm are\n",hypo)
-list =[]
-p=0
+# Solvable Final configuration<br> 
+# Value 0 is used for empty space<br> 
+final = [ [ 1, 2, 3 ],<br> 
+		[ 5, 8, 6 ],<br> 
+		[ 0, 7, 4 ] ]<br> 
+<br> 
+# Blank tile coordinates in<br> 
+# initial configuration<br> <br> 
+empty_tile_pos = [ 1, 2 ]<br> <br> 
+<br> <br> 
+# Function call to solve the puzzle<br> <br> 
+solve(initial, empty_tile_pos, final)<br> <br> 
+<br> <br> 
+# This code is contributed by Kevin Joshi<br> <br> 
+<br> <br> 
+**output**<br> <br> 
+1  2  3 <br> <br>  
+5  6  0  <br> <br> 
+7  8  4 <br>  
+<br> 
+1  2  3  <br> 
+5  0  6 <br>  
+7  8  4 <br>  
+<br> 
+1  2  3 <br>  
+5  8  6 <br>  
+7  0  4 <br>  
+<br> 
+1  2  3 <br>  
+5  8  6 <br>  
+0  7  4 <br> 
+<br> 
+8 **saLesman problem**<br> 
+from sys import maxsize<br> 
+from itertools import permutations<br> 
+V = 4<br> 
+def travellingSalesmanProblem(graph, s):<br> 
+    # store all vertex apart from source vertex<br> 
+    vertex = []<br> 
+    for i in range(V):<br> 
+        if i != s:<br> 
+            vertex.append(i)<br> 
+            # store minimum weight Hamiltonian Cycl<br> 
+        min_path = maxsize<br> 
+        next_permutation=permutations(vertex)<br> 
+        for i in next_permutation:<br> 
+        # store current Path weight(cost)<br> 
+            current_pathweight = 0<br> 
+            # compute current path weight<br> 
+            k = s<br> 
+            for j in i:<br> 
+                current_pathweight += graph[k][j]<br> 
+                k = j<br> 
+            current_pathweight += graph[k][s]<br> 
+                # Update minimum<br> 
+            min_path = min(min_path, current_pathweight)<br> 
+    return min_path<br> 
+                # Driver Code<br> 
+if __name__ == "__main__":<br> 
+# matrix representation of graph<br> 
+    graph = [[0, 10, 15, 20], [10, 0, 35, 25],<br> 
+            [15, 35, 0, 30], [20, 25, 30, 0]]<br> 
+    s = 0<br> 
+    print(travellingSalesmanProblem(graph, s))<br> 
+       <br>   <br>           
+**output**<br> 
+80<br> 
+<br> 
+**part-B machine learning**<br> 
+9 ** find 1`s algorithm**<br> 
+import csv<br> 
+hypo=['%','%','%','%','%','%']<br> 
+with open('ws.csv') as csv_file:<br> 
+    readcsv = csv.reader(csv_file, delimiter=',')<br> 
+    data=[]<br> 
+    print("\nThe given training examples are:")<br> 
+    for row in readcsv:<br> 
+        print(row)<br> 
+        if row[len(row)-1] =='Yes':<br> 
+            data.append(row)<br> 
+print("\nThe positive examples are:")<br> 
+for x in data:<br> 
+    print(x)<br> 
+TotalExamples=len(data)<br> 
+i=0<br> 
+j=0<br> 
+k=0<br> 
+print("\nThe steps of the Find-s algorithm are\n",hypo)<br> 
+list =[]<br> 
+p=0<br> 
 d=len(data[p])-1
-for j in range(d):
-    list.append(data[i][j])
-hypo=list
-for i in range(1,TotalExamples):
-    for k in range(d):
-        if hypo[k]!=data[i][k]:
-            hypo[k]='?'
-        else:
-            hypo[k]
-    print(hypo)
-print("\nThe maximally specific Find-s hypothesis for the given training examples is");
-list=[]
-for i in range(d):
-    list.append(hypo[i])
-print(list)
+for j in range(d):<br> 
+    list.append(data[i][j])<br> 
+hypo=list<br> 
+for i in range(1,TotalExamples):<br> 
+    for k in range(d):<br> 
+        if hypo[k]!=data[i][k]:<br> 
+            hypo[k]='?'<br> 
+        else:<br> 
+            hypo[k]<br> 
+    print(hypo)<br> 
+print("\nThe maximally specific Find-s hypothesis for the given training examples is");<br> 
+list=[]<br> 
+for i in range(d):<br> 
+    list.append(hypo[i])<br> 
+print(list)<br> 
+<br> 
+**output**<br> 
+The given training examples are:<br> 
+['Sunny', 'Warm', 'Normal', 'Strong', 'Warm', 'Same', 'Yes']<br> 
+['Sunny', 'Warm', 'High', 'Strong', 'Warm', 'Same', 'Yes']<br> 
+['Rainy', 'Cold', 'High', 'Strong', 'Warm', 'Change', 'No']<br> 
+['Sunny', 'Warm', 'High', 'Strong', 'Cool', 'Change', 'Yes']<br> 
+<br> 
+The positive examples are:<br> 
+['Sunny', 'Warm', 'Normal', 'Strong', 'Warm', 'Same', 'Yes']<br> 
+['Sunny', 'Warm', 'High', 'Strong', 'Warm', 'Same', 'Yes']<br> 
+['Sunny', 'Warm', 'High', 'Strong', 'Cool', 'Change', 'Yes']<br> 
 
-**output**
-The given training examples are:
-['Sunny', 'Warm', 'Normal', 'Strong', 'Warm', 'Same', 'Yes']
-['Sunny', 'Warm', 'High', 'Strong', 'Warm', 'Same', 'Yes']
-['Rainy', 'Cold', 'High', 'Strong', 'Warm', 'Change', 'No']
-['Sunny', 'Warm', 'High', 'Strong', 'Cool', 'Change', 'Yes']
-
-The positive examples are:
-['Sunny', 'Warm', 'Normal', 'Strong', 'Warm', 'Same', 'Yes']
-['Sunny', 'Warm', 'High', 'Strong', 'Warm', 'Same', 'Yes']
-['Sunny', 'Warm', 'High', 'Strong', 'Cool', 'Change', 'Yes']
-
-The steps of the Find-s algorithm are
- ['%', '%', '%', '%', '%', '%']
-['Sunny', 'Warm', '?', 'Strong', 'Warm', 'Same']
-['Sunny', 'Warm', '?', 'Strong', '?', '?']
-
-The maximally specific Find-s hypothesis for the given training examples is
-['Sunny', 'Warm', '?', 'Strong', '?', '?']
-
-10**candidate elimination**
-import csv
-with open('ws.csv') as csv_file:
+The steps of the Find-s algorithm are<br> 
+ ['%', '%', '%', '%', '%', '%']<br> 
+['Sunny', 'Warm', '?', 'Strong', 'Warm', 'Same']<br> 
+['Sunny', 'Warm', '?', 'Strong', '?', '?']<br> 
+<br> 
+The maximally specific Find-s hypothesis for the given training examples is<br> 
+['Sunny', 'Warm', '?', 'Strong', '?', '?']<br> 
+<br> 
+10**candidate elimination**<br> 
+import csv<br> 
+with open('ws.csv') as csv_file:<br> 
 #with open("ws.csv") as f:
-    #csv_file=csv.reader(f)
-          #data=list(csv_file)
-          readcsv=csv.reader(csv_file,delimiter=',')
-          data=[]
-          for row in readcsv:
-              data.append(row)
-          s=data[1][:-1]
-          g=[['?' for i in range(len(s))] for j in range(len(s))]
-          for i in data:
-              if[-1]=="Yes":
-                for j in range(len(s)):
-                   if i[j]!=s[j]:
-                      s[j]='?'
-                      g[j][j]='?'
-              elif i[-1]=="No":
-                    for j in range(len(s)):
+    #csv_file=csv.reader(f)<br> 
+          #data=list(csv_file)<br> 
+          readcsv=csv.reader(csv_file,delimiter=',')<br> 
+          data=[]<br> 
+          for row in readcsv:<br> 
+              data.append(row)<br> 
+          s=data[1][:-1]<br> 
+          g=[['?' for i in range(len(s))] for j in range(len(s))]<br> 
+          for i in data:<br> 
+              if[-1]=="Yes":<br> 
+                for j in range(len(s)):<br> 
+                   if i[j]!=s[j]:<br> 
+                      s[j]='?'<br> 
+                      g[j][j]='?'<br> 
+              elif i[-1]=="No":<br> 
+                    for j in range(len(s)):<br> 
                       if i[j]!=s[j]:
                           g[j][j]=s[j]
-                      else:
-                            g[j][j]="?"
-              print("\nSteps of Candidate Elimination Algorithm",data.index(i)+1)
-              print(s)
-              print(g)
-          gh=[]
-          for i in g:
-             for j in i:
-                if j!='?':
-                    gh.append(i)
-                    break
-          print("\nFinal specific hypothesis:\n",s)
-          print("\nFinal general hypothesis:\n",gh)
-
-**output**
-
-Steps of Candidate Elimination Algorithm 1
-['Sunny', 'Warm', 'High', 'Strong', 'Warm', 'Same']
-[['?', '?', '?', '?', '?', '?'], ['?', '?', '?', '?', '?', '?'], ['?', '?', '?', '?', '?', '?'], ['?', '?', '?', '?', '?', '?'], ['?', '?', '?', '?', '?', '?'], ['?', '?', '?', '?', '?', '?']]
-
-Steps of Candidate Elimination Algorithm 2
-['Sunny', 'Warm', 'High', 'Strong', 'Warm', 'Same']
-[['?', '?', '?', '?', '?', '?'], ['?', '?', '?', '?', '?', '?'], ['?', '?', '?', '?', '?', '?'], ['?', '?', '?', '?', '?', '?'], ['?', '?', '?', '?', '?', '?'], ['?', '?', '?', '?', '?', '?']]
-
-Steps of Candidate Elimination Algorithm 3
-['Sunny', 'Warm', 'High', 'Strong', 'Warm', 'Same']
-[['Sunny', '?', '?', '?', '?', '?'], ['?', 'Warm', '?', '?', '?', '?'], ['?', '?', '?', '?', '?', '?'], ['?', '?', '?', '?', '?', '?'], ['?', '?', '?', '?', '?', '?'], ['?', '?', '?', '?', '?', 'Same']]
-
-Steps of Candidate Elimination Algorithm 4
-['Sunny', 'Warm', 'High', 'Strong', 'Warm', 'Same']
-[['Sunny', '?', '?', '?', '?', '?'], ['?', 'Warm', '?', '?', '?', '?'], ['?', '?', '?', '?', '?', '?'], ['?', '?', '?', '?', '?', '?'], ['?', '?', '?', '?', '?', '?'], ['?', '?', '?', '?', '?', 'Same']]
-
-Final specific hypothesis:
- ['Sunny', 'Warm', 'High', 'Strong', 'Warm', 'Same']
-
-Final general hypothesis:
- [['Sunny', '?', '?', '?', '?', '?'], ['?', 'Warm', '?', '?', '?', '?'], ['?', '?', '?', '?', '?', 'Same']]
+                      else:<br> 
+                            g[j][j]="?"<br> 
+              print("\nSteps of Candidate Elimination Algorithm",data.index(i)+1)<br> 
+              print(s)<br> 
+              print(g)<br> 
+          gh=[]<br> 
+          for i in g:<br> 
+             for j in i:<br> 
+                if j!='?':<br> 
+                    gh.append(i)<br> 
+                    break<br> 
+          print("\nFinal specific hypothesis:\n",s)<br> 
+          print("\nFinal general hypothesis:\n",gh)<br> 
+<br> 
+**output**<br> 
+<br> 
+Steps of Candidate Elimination Algorithm 1<br> 
+['Sunny', 'Warm', 'High', 'Strong', 'Warm', 'Same']<br> 
+[['?', '?', '?', '?', '?', '?'], ['?', '?', '?', '?', '?', '?'], ['?', '?', '?', '?', '?', '?'], ['?', '?', '?', '?', '?', '?'], ['?', '?', '?', '?', '?', '?'], ['?', '?', '?', '?', '?', '?']]<br> 
+<br> 
+Steps of Candidate Elimination Algorithm 2<br> 
+['Sunny', 'Warm', 'High', 'Strong', 'Warm', 'Same']<br> 
+[['?', '?', '?', '?', '?', '?'], ['?', '?', '?', '?', '?', '?'], ['?', '?', '?', '?', '?', '?'], ['?', '?', '?', '?', '?', '?'], ['?', '?', '?', '?', '?', '?'], ['?', '?', '?', '?', '?', '?']]<br> 
+<br> 
+Steps of Candidate Elimination Algorithm 3<br> 
+['Sunny', 'Warm', 'High', 'Strong', 'Warm', 'Same']<br> 
+[['Sunny', '?', '?', '?', '?', '?'], ['?', 'Warm', '?', '?', '?', '?'], ['?', '?', '?', '?', '?', '?'], ['?', '?', '?', '?', '?', '?'], ['?', '?', '?', '?', '?', '?'], ['?', '?', '?', '?', '?', 'Same']]<br> 
+<br> 
+Steps of Candidate Elimination Algorithm 4<br> 
+['Sunny', 'Warm', 'High', 'Strong', 'Warm', 'Same']<br> 
+[['Sunny', '?', '?', '?', '?', '?'], ['?', 'Warm', '?', '?', '?', '?'], ['?', '?', '?', '?', '?', '?'], ['?', '?', '?', '?', '?', '?'], ['?', '?', '?', '?', '?', '?'], ['?', '?', '?', '?', '?', 'Same']]<br> 
+<br> 
+Final specific hypothesis:<br> 
+ ['Sunny', 'Warm', 'High', 'Strong', 'Warm', 'Same']<br> 
+<br> 
+Final general hypothesis:<br> 
+ [['Sunny', '?', '?', '?', '?', '?'], ['?', 'Warm', '?', '?', '?', '?'], ['?', '?', '?', '?', '?', 'Same']]<br> 
 
 
 
