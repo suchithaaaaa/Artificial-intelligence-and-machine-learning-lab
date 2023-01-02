@@ -892,55 +892,55 @@ Final specific hypothesis:<br>
 Final general hypothesis:<br> 
  [['Sunny', '?', '?', '?', '?', '?'], ['?', 'Warm', '?', '?', '?', '?'], ['?', '?', '?', '?', '?', 'Same']]<br> 
  
- 11 **N-Queens **
- global N 
-N = 4 
-def printSolution(board): 
-    for i in range(N): 
-        for j in range(N): 
-            print (board[i][j], end = " ") 
-        print() 
-def isSafe(board, row, col): 
-    for i in range(col): 
-        if board[row][i] == 1: 
-            return False 
-    for i, j in zip(range(row, -1, -1),
-        range(col, -1, -1)): 
-        if board[i][j] == 1: 
-            return False 
-    for i, j in zip(range(row, N, 1),
-        range(col, -1, -1)): 
-        if board[i][j] == 1: 
-            return False 
-    return True
-def solveNQUtil(board, col): 
-    if col >= N: 
-        return True 
-    for i in range(N): 
-        if isSafe(board, i, col): 
-            board[i][col] = 1  
-            if solveNQUtil(board, col + 1) == True:
-                return True 
-            board[i][col] = 0 
-    return False 
-def solveNQ(): 
-    board = [ [0, 0, 0, 0], 
-             [0, 0, 0, 0], 
-             [0, 0, 0, 0], 
-             [0, 0, 0, 0] ] 
-    if solveNQUtil(board, 0) == False: 
-        print ("Solution does not exist") 
-        return False 
-    printSolution(board) 
-    return True 
-solveNQ()
-
-**output**
-0 0 1 0 
-1 0 0 0 
-0 0 0 1 
-0 1 0 0 
-True
+ 11 **N-Queens **<br> 
+ global N <br> 
+N = 4<br>  
+def printSolution(board):<br>  
+    for i in range(N):<br>  
+        for j in range(N):<br>  
+            print (board[i][j], end = " ")<br>  
+        print()<br>  
+def isSafe(board, row, col):<br>  
+    for i in range(col):<br>  
+        if board[row][i] == 1:<br>  
+            return False <br> 
+    for i, j in zip(range(row, -1, -1),<br> 
+        range(col, -1, -1)):<br>  
+        if board[i][j] == 1:<br>  
+            return False<br>  
+    for i, j in zip(range(row, N, 1),<br> 
+        range(col, -1, -1)):<br>  
+        if board[i][j] == 1: <br> 
+            return False <br> 
+    return True<br> 
+def solveNQUtil(board, col):<br>  
+    if col >= N: <br> 
+        return True <br> 
+    for i in range(N):<br>  
+        if isSafe(board, i, col):<br>  
+            board[i][col] = 1<br>   
+            if solveNQUtil(board, col + 1) == True:<br> 
+                return True<br>  
+            board[i][col] = 0 <br> 
+    return False <br> 
+def solveNQ():<br>  
+    board = [ [0, 0, 0, 0], <br> 
+             [0, 0, 0, 0],<br>  
+             [0, 0, 0, 0],<br>  
+             [0, 0, 0, 0] ] <br> 
+    if solveNQUtil(board, 0) == False: <br> 
+        print ("Solution does not exist") <br> 
+        return False<br>  
+    printSolution(board)<br>  
+    return True<br>  
+solveNQ()<br> 
+<br> 
+**output**<br> 
+0 0 1 0 <br> 
+1 0 0 0<br>  
+0 0 0 1<br>  
+0 1 0 0 <br> 
+True<br> 
 
 
 
